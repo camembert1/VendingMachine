@@ -145,5 +145,66 @@ public class DrinkDAO {
 		return result;
 	}
 	
-
+	/**
+	 * 입력 받은 상품 정보를 담은 Drink 객체 INSERT하기
+	 * @param drink
+	 * @return
+	 */
+	public int insertDrink(Drink drink) {
+		
+		int result = 0;
+		String sql = "INSERT INTO DRINK_TBL VALUES (DRINK_NO_SEQ.NEXTVAL, ?, ?, ?)";
+		
+		try {
+			
+			Class.forName(DRIVER_NAME);
+			Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, drink.getDrinkName());
+			pstmt.setInt(2, drink.getDrinkPrice());
+			pstmt.setInt(3, drink.getDrinkStock());
+			result = pstmt.executeUpdate();
+			
+			pstmt.close();
+			conn.close();
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	/**
+	 * 입력 받은 품번, 상품 정보를 담은 Drink 객체로 정보 UPDATE하기
+	 * @param choiceRowNum
+	 * @param drink
+	 * @return
+	 */
+	public int updatePriceStock(int choiceRowNum, Drink drink) {
+		
+		int result = 0;
+		String sql = "UPDATE DRINK_TBL SET DRINK_PRICE = ?, DRINK_STOCK = ? WHERE DRINK_NO = (SELECT DRINK_NO FROM V_DRINK WHERE 가상품번 = ?)";
+		
+		try {
+			
+			Class.forName(DRIVER_NAME);
+			Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, drink.getDrinkPrice());
+			pstmt.setInt(2, drink.getDrinkStock());
+			pstmt.setInt(3, choiceRowNum);
+			result = pstmt.executeUpdate();
+			
+			pstmt.close();
+			conn.close();
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }

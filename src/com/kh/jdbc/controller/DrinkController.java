@@ -46,5 +46,27 @@ public class DrinkController {
 		int result = dDao.updateStockByRowNum(choiceRowNum);
 		return result;
 	}
+	
+	/**
+	 * 새로운 음료 등록 성공 여부 반환
+	 * @param drink
+	 * @return
+	 */
+	public int registerDrink(Drink drink) {
+		DrinkDAO dDao = new DrinkDAO();
+		int result = dDao.insertDrink(drink);
+		return result;
+	}
+	
+	/**
+	 * 음료 정보(가격, 수량) 수정 성공 여부 반환
+	 * @param choiceRowNum
+	 * @param drink
+	 * @return
+	 */
+	public int modifyDrink(int choiceRowNum, Drink drink) {
+		int result = dDao.updatePriceStock(choiceRowNum, drink);
+		return result;
+	}
 
 }

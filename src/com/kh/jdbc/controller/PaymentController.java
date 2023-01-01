@@ -14,5 +14,15 @@ public class PaymentController {
 		int result = pDao.insertPaymentByRowNum(choiceRowNum, paymentMethod);
 		return result;
 	}
+	/**
+	 * 수익 조회 결과 반환
+	 * @param paymentMethod
+	 * @return
+	 */
+	public int checkProfit(String paymentMethod) {
+		PaymentDAO paymentDAO = new PaymentDAO();
+		int profit = paymentDAO.selectSumProfit(paymentMethod);
+		return profit;
+	}
 
 }

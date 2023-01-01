@@ -3,6 +3,7 @@ package com.kh.jdbc.model.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class PaymentDAO {
@@ -41,6 +42,38 @@ public class PaymentDAO {
 		}
 		
 		return result;
+	}
+	
+	/**
+	 * 입력 받은 결제 수단에 해당하는 수익 합계 반환
+	 * @param paymentMethod
+	 * @return
+	 */
+	public int selectSumProfit(String paymentMethod) {
+		
+		int profit = 0;
+		String sql = "SELECT SUM(PAYMENT_AMOUNT) FROM PAYMENT_TBL WHERE PAYMENT_METHOD = ?";
+		
+		try {
+			
+			Class.forName(DRIVER_NAME);
+			Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, paymentMethod);
+			ResultSet rset = pstmt.executeQuery();
+			if (rset.next()) profit = rset.getInt(1);
+			
+			rset.close();
+			pstmt.close();
+			conn.close();
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return profit;
 	}
 	
 }
