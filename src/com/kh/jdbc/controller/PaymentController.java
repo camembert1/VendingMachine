@@ -10,8 +10,8 @@ public class PaymentController {
 	 * @param choiceRowNum
 	 * @return
 	 */
-	public int minusStockByRowNum(int choiceRowNum) {
-		int result = pDao.insertPaymentByRowNum(choiceRowNum);
+	public int paymentByRowNum(int choiceRowNum, String paymentMethod) {
+		int result = pDao.insertPaymentByRowNum(choiceRowNum, paymentMethod);
 		return result;
 	}
 

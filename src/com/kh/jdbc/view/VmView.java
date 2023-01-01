@@ -68,16 +68,41 @@ public class VmView {
 	}
 	
 	/**
-	 * 음료 품번 입력받아서 반환
+	 * 음료 품번 입력받아서 반환(현금결제)
+	 * (카드일 경우 inputMoney값으로 -1을 입력 받음)
 	 * @return
 	 */
-	public int inputRowNum(int inputMoney) {
+	public int inputRowNumByCash(int inputMoney) {
+		int choiceRowNum = 0;
+		
 		System.out.println("구매할 음료 품번을 입력하세요!");
 		System.out.println("(투입 금액 반환을 원할 경우 0을 입력하세요!)");
 		System.out.print(">> ");
-		int choiceRowNum = sc.nextInt();
+		choiceRowNum = sc.nextInt();
 		if (choiceRowNum == 0) {
-			System.out.printf("투입하신 %s원을 반환합니다!%n%n", df.format(inputMoney));
+		System.out.printf("투입하신 %s원을 반환합니다!%n%n", df.format(inputMoney));
+		}
+		return choiceRowNum;
+	}
+	
+	/**
+	 * 음료 품번 입력받아서 반환(카드결제)
+	 * @param paymentCardAmt
+	 * @return
+	 */
+	public int inputRowNumByCard(int paymentCardAmt) {
+		int choiceRowNum = 0;
+		
+		System.out.println("구매할 음료 품번을 입력하세요!");
+		System.out.println("(더 이상 구매를 원하지 않을 경우 0을 입력하세요!)");
+		System.out.print(">> ");
+		choiceRowNum = sc.nextInt();
+		if (choiceRowNum == 0) {
+			if (paymentCardAmt != 0) {
+				System.out.printf("%s원 결제중입니다!%n", df.format(paymentCardAmt));
+				System.out.println("결제가 완료되었습니다. 카드를 제거하세요!");
+			}
+			System.out.println("카드를 제거해 주세요!");
 		}
 		return choiceRowNum;
 	}

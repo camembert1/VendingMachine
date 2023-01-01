@@ -17,17 +17,18 @@ public class PaymentDAO {
 	 * @param choiceRowNum
 	 * @return
 	 */
-	public int insertPaymentByRowNum(int choiceRowNum) {
+	public int insertPaymentByRowNum(int choiceRowNum, String paymentMethod) {
 		
 		int result = 0;
-		String sql = "INSERT INTO PAYMENT_TBL VALUES ((SELECT DRINK_NO FROM V_DRINK WHERE 가상품번 = ?), 1, '현금', (SELECT DRINK_PRICE FROM V_DRINK WHERE 가상품번 = ?), DEFAULT)"; 
+		String sql = "INSERT INTO PAYMENT_TBL VALUES ((SELECT DRINK_NO FROM V_DRINK WHERE 가상품번 = ?), 1, ?, (SELECT DRINK_PRICE FROM V_DRINK WHERE 가상품번 = ?), DEFAULT)"; 
 		
 		try {
 			Class.forName(DRIVER_NAME);
 			Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, choiceRowNum);
-			pstmt.setInt(2, choiceRowNum);
+			pstmt.setString(2, paymentMethod);
+			pstmt.setInt(3, choiceRowNum);
 			result = pstmt.executeUpdate();
 			
 			pstmt.close();

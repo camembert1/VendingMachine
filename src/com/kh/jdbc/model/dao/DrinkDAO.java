@@ -54,7 +54,7 @@ public class DrinkDAO {
 	}
 	
 	/**
-	 * 입력받은 품번으로 Drink 반환
+	 * 입력 받은 품번으로 Drink 반환
 	 * @param choiceRowNum
 	 * @return
 	 */
@@ -84,7 +84,7 @@ public class DrinkDAO {
 	}
 	
 	/**
-	 * 입력받은 품번으로 재고 조회해서 반환 (없는 품번 입력할 경우 -1 반환)
+	 * 입력 받은 품번으로 재고 조회해서 반환 (없는 품번 입력할 경우 -1 반환)
 	 * @param choiceRowNum
 	 * @return
 	 */
@@ -118,7 +118,7 @@ public class DrinkDAO {
 	}
 	
 	/**
-	 * 입력받은 품번으로 재고 -1하기(음료뽑기!)
+	 * 입력 받은 품번으로 재고 -1하기(음료뽑기!)
 	 * @param choiceRowNum
 	 * @return
 	 */
